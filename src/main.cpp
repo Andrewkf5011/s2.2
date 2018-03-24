@@ -1,20 +1,41 @@
 #include <mbed.h>
+#include "components.h"
 
-DigitalOut blue(LED_BLUE);
+AssignmentBoard board;
 
-Ticker  pit;
+LED blue(board.K64F_BLUE_LED);
 
-void flash(void) {
+Ticker pit;
+
+void flash(void)
+{
    static unsigned int phase=0;
 
-   if(phase==0) blue.write(0); /* on */
-   if(phase==1) blue.write(1); /* off */
+   if(phase==0)
+   {
+     blue.on();
+   }
+
+   if(phase==1)
+   {
+     blue.off();
+   }
 
    phase++;
-   if(phase==3) phase=0;
+
+   if(phase==3)
+   {
+     //Reset the phases.
+     phase=0;
+   }
 }
 
-int main(void) {
+int main(void)
+{
   pit.attach(flash,0.5);
-  while(1);
+
+  while(1)
+  {
+    //ground.
+  }
 }
